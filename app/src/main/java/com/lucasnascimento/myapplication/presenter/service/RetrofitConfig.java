@@ -3,6 +3,7 @@ package com.lucasnascimento.myapplication.presenter.service;
 import android.util.Log;
 
 import com.lucasnascimento.myapplication.interfaces.MainView;
+import com.lucasnascimento.myapplication.interfaces.PRView;
 
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
@@ -14,7 +15,20 @@ public class RetrofitConfig {
     public RetrofitConfig(MainView view){
         try{
             this.retrofit = new Retrofit.Builder()
-                    .baseUrl("https://api.github.com/search/")
+                    .baseUrl("https://api.github.com/")
+                    .addConverterFactory(GsonConverterFactory.create())
+                    .build();
+        }catch (Exception e){
+            e.printStackTrace();
+            Log.e(TAG, e.getMessage());
+            view.showMessage(e.getMessage());
+        }
+    }
+
+    public RetrofitConfig(PRView view){
+        try{
+            this.retrofit = new Retrofit.Builder()
+                    .baseUrl("https://api.github.com/")
                     .addConverterFactory(GsonConverterFactory.create())
                     .build();
         }catch (Exception e){

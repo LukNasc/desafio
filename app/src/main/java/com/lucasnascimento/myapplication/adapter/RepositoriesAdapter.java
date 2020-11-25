@@ -1,7 +1,6 @@
 package com.lucasnascimento.myapplication.adapter;
 
 import android.annotation.SuppressLint;
-import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,18 +14,16 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.lucasnascimento.myapplication.R;
-import com.lucasnascimento.myapplication.models.skeleton.GithubService;
+import com.lucasnascimento.myapplication.interfaces.MainView;
+import com.lucasnascimento.myapplication.models.skeleton.GithubRepositories;
 
-import java.util.List;
+public class RepositoriesAdapter extends PagedListAdapter<GithubRepositories.Repositories, RepositoriesAdapter.RepositorysHolder> {
 
-public class RepositorysAdapter extends PagedListAdapter<GithubService.Repositories,RepositorysAdapter.RepositorysHolder> {
+    private MainView view;
 
-    private List<GithubService.Repositories> lstRepositories;
-    private Context context;
-
-    public RepositorysAdapter(Context context) {
+    public RepositoriesAdapter(MainView view) {
         super(DIFF_CALLBACK);
-        this.context = context;
+        this.view = view;
     }
 
     @NonNull
@@ -39,7 +36,7 @@ public class RepositorysAdapter extends PagedListAdapter<GithubService.Repositor
 
     @Override
     public void onBindViewHolder(@NonNull RepositorysHolder holder, int position) {
-        GithubService.Repositories repo = getItem(position);
+        GithubRepositories.Repositories repo = getItem(position);
         holder.txtRepoTitle.setText(repo.getName());
         holder.txtRepoDesc.setText(repo.getDescription());
         holder.txtStars.setText(repo.getStargazers_count()+" Stars");
@@ -52,20 +49,21 @@ public class RepositorysAdapter extends PagedListAdapter<GithubService.Repositor
         }
     }
 
-    private static DiffUtil.ItemCallback<GithubService.Repositories> DIFF_CALLBACK = new DiffUtil.ItemCallback<GithubService.Repositories>() {
+    private static DiffUtil.ItemCallback<GithubRepositories.Repositories> DIFF_CALLBACK = new DiffUtil.ItemCallback<GithubRepositories.Repositories>() {
         @Override
-        public boolean areItemsTheSame(@NonNull GithubService.Repositories oldItem, @NonNull GithubService.Repositories newItem) {
+        public boolean areItemsTheSame(@NonNull GithubRepositories.Repositories oldItem, @NonNull GithubRepositories.Repositories newItem) {
             return oldItem.getId() == newItem.getId();
         }
 
         @SuppressLint("DiffUtilEquals")
         @Override
-        public boolean areContentsTheSame(@NonNull GithubService.Repositories oldItem, @NonNull GithubService.Repositories newItem) {
+        public boolean areContentsTheSame(@NonNull GithubRepositories.Repositories oldItem, @NonNull GithubRepositories.Repositories newItem) {
             return oldItem.equals(newItem);
         }
     };
 
-    class RepositorysHolder extends RecyclerView.ViewHolder{
+
+    class RepositorysHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
         public TextView txtRepoTitle, txtRepoDesc, txtStars, txtForks, txtUser;
         public ImageView ivProfile;
         public RepositorysHolder(@NonNull View itemView) {
@@ -76,6 +74,14 @@ public class RepositorysAdapter extends PagedListAdapter<GithubService.Repositor
             txtForks = itemView.findViewById(R.id.txtForks);
             txtUser = itemView.findViewById(R.id.txtUser);
             ivProfile = itemView.findViewById(R.id.ivProfile);
+
+            itemView.setOnClickListener(this);
+        }
+
+        @Override
+        public void onClick(View v) {
+            String repository = txtUser.getText().toString()+"/"+txtRepoTitle.getText().toString();
+            view.goToPRActivity(repository);
         }
     }
 }

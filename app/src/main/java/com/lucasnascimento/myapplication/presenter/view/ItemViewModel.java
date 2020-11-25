@@ -7,12 +7,12 @@ import androidx.paging.PageKeyedDataSource;
 import androidx.paging.PagedList;
 
 import com.lucasnascimento.myapplication.interfaces.MainView;
-import com.lucasnascimento.myapplication.models.skeleton.GithubService;
+import com.lucasnascimento.myapplication.models.skeleton.GithubRepositories;
 import com.lucasnascimento.myapplication.presenter.pagination.ItemDataSourceFactory;
 
 public class ItemViewModel extends ViewModel {
-    public LiveData<PagedList<GithubService.Repositories>> itemPagedList;
-    public LiveData<PageKeyedDataSource<Integer, GithubService.Repositories>> liveDataSource;
+    public LiveData<PagedList<GithubRepositories.Repositories>> itemPagedList;
+    public LiveData<PageKeyedDataSource<Integer, GithubRepositories.Repositories>> liveDataSource;
     public  MainView view;
     //constructor
     public ItemViewModel() {

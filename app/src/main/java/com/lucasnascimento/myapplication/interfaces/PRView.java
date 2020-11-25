@@ -1,7 +1,6 @@
 package com.lucasnascimento.myapplication.interfaces;
 
-public interface MainView {
+public interface PRView {
     void showMessage(String message);
-
-    void goToPRActivity(String repository);
+    void openBrowser(String link);
 }

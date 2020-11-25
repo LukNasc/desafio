@@ -3,7 +3,7 @@ package com.lucasnascimento.myapplication.models.skeleton;
 import java.util.ArrayList;
 import java.util.List;
 
-public class GithubService {
+public class GithubRepositories {
     private List<Repositories> items = new ArrayList<>();
     private long total_count;
 
