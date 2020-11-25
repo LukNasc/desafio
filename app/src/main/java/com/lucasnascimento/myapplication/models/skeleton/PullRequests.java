@@ -6,6 +6,7 @@ public class PullRequests {
     private String body;
     private User user;
     private String html_url;
+    private String created_at;
 
     public long getId() {
         return id;
@@ -45,6 +46,14 @@ public class PullRequests {
 
     public void setHtml_url(String url) {
         this.html_url = url;
+    }
+
+    public String getCreated_at() {
+        return created_at;
+    }
+
+    public void setCreated_at(String created_at) {
+        this.created_at = created_at;
     }
 
     public class User{

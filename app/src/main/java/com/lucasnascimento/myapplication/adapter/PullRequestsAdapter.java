@@ -44,6 +44,7 @@ public class PullRequestsAdapter extends RecyclerView.Adapter<PullRequestsAdapte
         holder.txtTitle.setText(pr.getTitle());
         holder.txtDescription.setText(pr.getBody());
         holder.txtUser.setText(pr.getUser().getLogin());
+        holder.txtDate.setText(pr.getCreated_at());
 
         if(pr.getUser().getAvatar_url() != null){
             Glide.with(holder.itemView)
@@ -63,7 +64,7 @@ public class PullRequestsAdapter extends RecyclerView.Adapter<PullRequestsAdapte
     }
 
     class PRHolder extends RecyclerView.ViewHolder {
-        TextView txtTitle, txtDescription, txtUser;
+        TextView txtTitle, txtDescription, txtUser, txtDate;
         ImageView ivProfile;
         public PRHolder(@NonNull View itemView) {
             super(itemView);
@@ -71,6 +72,7 @@ public class PullRequestsAdapter extends RecyclerView.Adapter<PullRequestsAdapte
             txtTitle = itemView.findViewById(R.id.txtPRTitle);
             txtDescription = itemView.findViewById(R.id.txtPRDescription);
             txtUser = itemView.findViewById(R.id.txtPRUser);
+            txtDate = itemView.findViewById(R.id.txtPRDate);
             ivProfile = itemView.findViewById(R.id.ivPRProfile);
 
         }
